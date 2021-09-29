@@ -1,1 +1,47 @@
 FROM alpine:3.14
+LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
+
+### Environment variables
+ENV LANG='en_US.UTF-8' \
+    LANGUAGE='en_US.UTF-8' \
+    TERM='xterm' \
+    APPUSER="samba" \
+    APPGID="10035" \
+    APPUID="10035"
+
+# Copy config files
+COPY root/ /
+
+### Install Application
+RUN set -x && \
+    chmod 1777 /tmp && \
+    . /usr/local/bin/docker-entrypoint-functions.sh && \
+    MYUSER="${APPUSER}" && \
+    MYUID="${APPUID}" && \
+    MYGID="${APPGID}" && \
+    ConfigureUser && \
+    apk add --no-cache --virtual=run-deps \
+      bash \
+      ca-certificates \
+      su-exec \
+      tzdata \
+    && \
+    mkdir -p /docker-entrypoint.d && \
+    chmod +x /usr/local/bin/docker-entrypoint.sh && \
+    ln -snf /usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh && \
+    rm -rf /tmp/* \
+           /var/cache/apk/*  \
+           /var/tmp/* 
+
+### Volume
+VOLUME ["/config", "/shares"]
+
+### Expose ports
+EXPOSE 137/udp 138/udp 139 445
+
+### Running User: not used, managed by docker-entrypoint.sh
+#USER samba
+
+### Start DELUGE
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["samba"]
