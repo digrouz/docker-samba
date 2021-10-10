@@ -10,7 +10,7 @@ MYGID="${APPGID}"
 AutoUpgrade
 ConfigureUser
 
-if [ "$1" == '<app>' ]; then
+if [ "$1" == 'samba' ]; then
   RunDropletEntrypoint
   DockLog "Starting app: ${1}"
   exec su-exec "${MYUSER}" <command>
