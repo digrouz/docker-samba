@@ -44,6 +44,6 @@ EXPOSE 137/udp 138/udp 139 445
 ### Running User: not used, managed by docker-entrypoint.sh
 #USER samba
 
-### Start DELUGE
+### Start SAMBA
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["samba"]
