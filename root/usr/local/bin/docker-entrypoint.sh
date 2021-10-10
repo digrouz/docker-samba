@@ -13,7 +13,7 @@ ConfigureUser
 if [ "$1" == 'samba' ]; then
   RunDropletEntrypoint
   DockLog "Starting app: ${1}"
-  exec su-exec "${MYUSER}" <command>
+  exec su-exec "${MYUSER}" exit 0
 else
   DockLog "Starting app: ${@}"
   exec "$@"
