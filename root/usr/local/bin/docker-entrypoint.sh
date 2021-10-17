@@ -13,7 +13,7 @@ ConfigureUser
 if [ "$1" == 'samba' ]; then
   RunDropletEntrypoint
   DockLog "Starting app: ${1}"
-  exec su-exec "${MYUSER}" exit 0
+  exec su-exec "${MYUSER}" smbd -FS --no-process-group
 else
   DockLog "Starting app: ${@}"
   exec "$@"

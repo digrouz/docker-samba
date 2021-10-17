@@ -1,13 +1,16 @@
 FROM alpine:3.14
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
+ARG SAMBA_VERSION="4.14.5-r0"
+
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
     TERM='xterm' \
     APPUSER="samba" \
     APPGID="10035" \
-    APPUID="10035"
+    APPUID="10035" \
+    SAMBA_VERSION="${SAMBA_VERSION}"
 
 # Copy config files
 COPY root/ /
@@ -23,7 +26,7 @@ RUN set -x && \
     apk add --no-cache --virtual=run-deps \
       bash \
       ca-certificates \
-      samba \
+      samba=${SAMBA_VERSION} \
       shadow \
       su-exec \
       tzdata \
