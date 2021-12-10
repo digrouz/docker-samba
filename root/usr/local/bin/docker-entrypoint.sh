@@ -8,7 +8,6 @@ MYUID="${APPUID}"
 MYGID="${APPGID}"
 
 AutoUpgrade
-ConfigureUser
 
 if [ "$1" == 'samba' ]; then
   RunDropletEntrypoint

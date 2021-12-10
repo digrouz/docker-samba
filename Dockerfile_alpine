@@ -7,9 +7,6 @@ ARG SAMBA_VERSION="4.14.8-r0"
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
     TERM='xterm' \
-    APPUSER="samba" \
-    APPGID="10035" \
-    APPUID="10035" \
     SAMBA_VERSION="${SAMBA_VERSION}"
 
 # Copy config files
@@ -19,10 +16,6 @@ COPY root/ /
 RUN set -x && \
     chmod 1777 /tmp && \
     . /usr/local/bin/docker-entrypoint-functions.sh && \
-    MYUSER="${APPUSER}" && \
-    MYUID="${APPUID}" && \
-    MYGID="${APPGID}" && \
-    ConfigureUser && \
     apk add --no-cache --virtual=run-deps \
       bash \
       ca-certificates \
