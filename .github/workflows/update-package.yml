@@ -23,7 +23,7 @@ jobs:
         run |
           apk update
           apk upgrade
-          apk install bash
+          apk add bash
       - name: run update-package.sh
         run: |
           echo "Run update-package.sh"
