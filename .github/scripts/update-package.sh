@@ -3,7 +3,7 @@
 PACKAGE_NAME=$1; 
 ALPINE_VERSION=$(grep "FROM alpine:" ../../Dockerfile_alpine | awk '{print $2}'| sed  -E "s|alpine:||" | awk -F '.' '{print $1"."$2}')
 
-NEW_VERSION=$(curl -SsL https://pkgs.alpinelinux.org/package/v${ALPINE_VERSION}/main/x86_64/samba | sed  -E "s|${PACKAGE_NAME}-||")
+NEW_VERSION=$(curl -SsL https://pkgs.alpinelinux.org/package/v${ALPINE_VERSION}/main/x86_64/samba | grep -i -A 2 version | tail -1 | awk '{print $1}')
 sed -i -e "s|ARG ${PACKAGE_NAME^^}_VERSION:.*|ARG ${PACKAGE_NAME^^}_VERSION=${NEW_VERSION}|" Dockerfile_alpine
 
 if output=$(git status --porcelain) && [ -z "$output" ]; then
