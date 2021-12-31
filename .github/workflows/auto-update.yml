@@ -22,4 +22,4 @@ jobs:
       - name: run auto-update.sh
         run: |
           echo "Run auto-update.sh"
-          bash .github/scripts/auto-package.sh 
+          bash .github/scripts/auto-update.sh 
