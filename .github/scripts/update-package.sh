@@ -1,15 +1,10 @@
 #!/usr/bin/env bash
 
-. root/usr/local/bin/docker-entrypoint-function.sh
-
-local OS=$(DetectOS)
-local NEW_VERSION=""
 PACKAGE_NAME=$1; 
+ALPINE_VERSION=$(grep "FROM alpine:" ../../Dockerfile_alpine | awk '{print $2}'| sed  -E "s|alpine:||" | awk -F '.' '{print $1"."$2}')
 
-if "${OS}" == "alpine" then
-  NEW_VERSION=$(apk list ${PACKAGE_NAME} | awk '{print $1}' | sed  -E "s|${PACKAGE_NAME}-||")
-  sed -i -e "s|ARG ${PACKAGE_NAME^^}_VERSION:.*|ARG ${PACKAGE_NAME^^}_VERSION=${NEW_VERSION}|" Dockerfile_alpine
-fi
+NEW_VERSION=$(https://pkgs.alpinelinux.org/package/v${ALPINE_VERSION}/main/x86_64/samba | sed  -E "s|${PACKAGE_NAME}-||")
+sed -i -e "s|ARG ${PACKAGE_NAME^^}_VERSION:.*|ARG ${PACKAGE_NAME^^}_VERSION=${NEW_VERSION}|" Dockerfile_alpine
 
 if output=$(git status --porcelain) && [ -z "$output" ]; then
   # Working directory clean
