@@ -14,7 +14,7 @@ if [ "$1" == 'samba' ]; then
   DockLog "Fixing permissions on /var/log/samba"
   chown -R ${MYUSER}:${MYUSER} /var/log/samba
   DockLog "Starting app: ${1}"
-  exec smbd -FS --no-process-group
+  exec smbd -F --no-process-group
 else
   DockLog "Starting app: ${@}"
   exec "$@"
