@@ -17,6 +17,7 @@ RUN set -x && \
     chmod 1777 /tmp && \
     . /usr/local/bin/docker-entrypoint-functions.sh && \
     apk add --no-cache --virtual=run-deps \
+      acl \
       bash \
       ca-certificates \
       samba=${SAMBA_VERSION} \
