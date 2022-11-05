@@ -1,7 +1,7 @@
 FROM alpine:3.16.2
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
-ARG SAMBA_VERSION=4.15.7-r0
+ARG SAMBA_VERSION=
 
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
